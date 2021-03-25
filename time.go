@@ -9,6 +9,10 @@ const (
 	DefaultLayout    = YearMonthDay + " " + HourMinuteSecond
 )
 
+const (
+	Zero = 0
+)
+
 // TimeToDefaultStr time转为默认格式的日期字符串
 func TimeToDefaultStr(t time.Time) string {
 	return TimeToStr(t, DefaultLayout)
@@ -119,4 +123,25 @@ func TimeStrToUnixMilli(str, layout string) int64 {
 // TimeStrToUnixNano 指定格式日期字符串转纳秒时间戳
 func TimeStrToUnixNano(str, layout string) int64 {
 	return TimeStrToTime(str, layout).UnixNano()
+}
+
+// NextDayStartedAtUnix 获取下一个零点时间戳
+func NextDayStartedAtUnix() int64 {
+	return NextDayStartedAt().Unix()
+}
+
+// NextDayStartedAt 获取下一个零点（明天的零点）
+func NextDayStartedAt() time.Time {
+	return TodayStartedAt().Add(time.Hour * 24)
+}
+
+// TodayStartedAtUnix 获取今天零点时间戳
+func TodayStartedAtUnix() int64 {
+	return TodayStartedAt().Unix()
+}
+
+// TodayStartedAt 获取今天零点
+func TodayStartedAt() time.Time {
+	now := time.Now()
+	return time.Date(now.Year(), now.Month(), now.Day(), Zero, Zero, Zero, Zero, now.Location())
 }

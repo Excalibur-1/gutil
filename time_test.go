@@ -1,6 +1,7 @@
 package gutil
 
 import (
+	"fmt"
 	"testing"
 	"time"
 )
@@ -93,4 +94,20 @@ func TestTimeStrToUnixMilli(t *testing.T) {
 
 func TestTimeStrToUnixNano(t *testing.T) {
 	t.Log(TimeStrToUnixNano("2021-02-0418:00:00.521123134", YearMonthDay+HourMinuteSecond+".000000000"))
+}
+
+func TestNextDayStartedAtUnix(t *testing.T) {
+	fmt.Println(NextDayStartedAtUnix())
+}
+
+func TestNextDayStartedAt(t *testing.T) {
+	fmt.Println(NextDayStartedAt())
+}
+
+func TestTodayStartedAtUnix(t *testing.T) {
+	fmt.Println(TodayStartedAtUnix())
+}
+
+func TestTodayStartedAt(t *testing.T) {
+	fmt.Println(TodayStartedAt())
 }
