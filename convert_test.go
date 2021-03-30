@@ -22,4 +22,3 @@ func TestAnyToDecimal(t *testing.T) {
 	}
 	fmt.Println(decimal)
 }
-
