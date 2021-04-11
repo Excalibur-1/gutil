@@ -1,7 +1,10 @@
 // Package gutil 封装常用go工具类
 package gutil
 
-import "time"
+import (
+	"context"
+	"time"
+)
 
 const (
 	YearMonthDay     = "2006-01-02"
@@ -12,6 +15,38 @@ const (
 const (
 	Zero = 0
 )
+
+// Duration be used toml unmarshal string time, like 1s, 500ms.
+type Duration time.Duration
+
+// NewDuration create a Duration
+func NewDuration(str string) (dur Duration) {
+	tmp, err := time.ParseDuration(str)
+	if err == nil {
+		dur = Duration(tmp)
+	}
+	return
+}
+
+// UnmarshalText unmarshal text to duration.
+func (d *Duration) UnmarshalText(text []byte) error {
+	tmp, err := time.ParseDuration(string(text))
+	if err == nil {
+		*d = Duration(tmp)
+	}
+	return err
+}
+
+func (d Duration) Shrink(c context.Context) (Duration, context.Context, context.CancelFunc) {
+	if deadline, ok := c.Deadline(); ok {
+		if timeout := time.Until(deadline); timeout < time.Duration(d) {
+			// deliver small timeout
+			return Duration(timeout), c, func() {}
+		}
+	}
+	ctx, cancel := context.WithTimeout(c, time.Duration(d))
+	return d, ctx, cancel
+}
 
 // TimeToDefaultStr time转为默认格式的日期字符串
 func TimeToDefaultStr(t time.Time) string {
