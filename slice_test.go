@@ -5,6 +5,18 @@ import (
 	"testing"
 )
 
+func TestContainsInt(t *testing.T) {
+	s1 := []int64{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+	index := ContainsInt(s1, 5)
+	fmt.Println(index)
+}
+
+func TestContainsString(t *testing.T) {
+	s1 := []string{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"}
+	index := ContainsString(s1, "9")
+	fmt.Println(index)
+}
+
 func TestSplitIntArray(t *testing.T) {
 	s1 := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
 	splitIntArray := SplitIntArray(s1, 3)

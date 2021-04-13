@@ -1,6 +1,30 @@
 // Package gutil 封装常用go工具类
 package gutil
 
+// ContainsInt Returns the index position of the int64 val in array
+func ContainsInt(array []int64, val int64) (index int) {
+	index = -1
+	for i := 0; i < len(array); i++ {
+		if array[i] == val {
+			index = i
+			return
+		}
+	}
+	return
+}
+
+// ContainsString Returns the index position of the string val in array
+func ContainsString(array []string, val string) (index int) {
+	index = -1
+	for i := 0; i < len(array); i++ {
+		if array[i] == val {
+			index = i
+			return
+		}
+	}
+	return
+}
+
 // SplitStringArray 分割数组，根据传入的数组和分割大小，将数组分割为大小等于指定大小的多个数组，如果不够分，则最后一个数组元素小于其他数组
 func SplitStringArray(arr []string, num int) [][]string {
 	max := len(arr)
